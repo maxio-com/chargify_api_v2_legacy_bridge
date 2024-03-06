@@ -18,12 +18,12 @@ module Chargify2
     attr_reader :base_uri
 
     def initialize(args = {})
-      options = args.recursive_symbolize_keys
+      options = Utils.deep_symbolize_keys(args)
 
-      @api_id       = options[:api_id]
-      @api_password = options[:api_password]
-      @api_secret   = options[:api_secret]
-      @base_uri     = options[:base_uri] || BASE_URI
+      @api_id       = options.api_id
+      @api_password = options.api_password
+      @api_secret   = options.api_secret
+      @base_uri     = options.base_uri || BASE_URI
     end
 
     def direct
@@ -32,6 +32,70 @@ module Chargify2
 
     def calls
       Chargify2::CallResource.new(self)
+    end
+
+    def customers
+      Chargify2::CustomerResource.new(self)
+    end
+
+    def migrations
+      Chargify2::MigrationResource.new(self)
+    end
+
+    def products
+      Chargify2::ProductResource.new(self)
+    end
+
+    def offers
+      Chargify2::OfferResource.new(self)
+    end
+
+    def statements
+      Chargify2::StatementResource.new(self)
+    end
+
+    def subscriptions
+      Chargify2::SubscriptionResource.new(self)
+    end
+
+    def subscriptions_components
+      Chargify2::SubscriptionsComponentResource.new(self)
+    end
+
+    def allocations
+      Chargify2::AllocationResource.new(self)
+    end
+
+    def allocation_previews
+      Chargify2::AllocationPreviewResource.new(self)
+    end
+
+    def renewal_previews
+      Chargify2::RenewalPreviewResource.new(self)
+    end
+
+    def metadata
+      Chargify2::MetadatumResource.new(self)
+    end
+
+    def reason_codes
+      Chargify2::ReasonCodeResource.new(self)
+    end
+
+    def holds
+      Chargify2::HoldResource.new(self)
+    end
+
+    def resumes
+      Chargify2::ResumeResource.new(self)
+    end
+
+    def coupons
+      Chargify2::CouponResource.new(self)
+    end
+
+    def subscription_cancellation_data
+      Chargify2::Subscription::CancellationDataResource.new(self)
     end
   end
 end

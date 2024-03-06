@@ -1,4 +1,3 @@
-module Chargify2
-  class Representation < Hashie::Trash
-  end
+module Chargify2 
+  Representation = Class.new(Hashie::Mash)
 end

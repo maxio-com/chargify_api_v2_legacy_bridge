@@ -1,33 +1,14 @@
 module Chargify2
-  class Call < Hashie::Dash
-    property :id
-    property :api_id
-    property :timestamp
-    property :nonce
-    property :success
-    property :request
-    property :response
-
-    Request  = Class.new(Hashery::OpenCascade)
-    Response = Class.new(Hashery::OpenCascade)
-    
-    def request
-      h = self[:request] || {}
-      Request[h.recursive_symbolize_keys]
-    end
-    
-    def response
-      h = self[:response] || {}
-      Response[h.recursive_symbolize_keys]
-    end
-    
+  class Call < Representation
     def successful?
-      response.result.status_code.to_s == '200'
+      code = response.meta.status_code.to_i 
+      code >= 200 && code < 300
     end
-    
+
     def errors
-      (response.result.errors || []).map {|e| Hashery::OpenCascade[e.recursive_symbolize_keys]}
+      @errors ||= begin
+        (response.meta[:errors] || []).map {|e| Hashie::Mash.new(e) }
+      end
     end
-    
   end
 end

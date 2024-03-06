@@ -7,4 +7,5 @@ pkg
 .DS_Store
 .rvmrc
 .ruby-version
-.ruby-gemset
+example.rb
+.idea

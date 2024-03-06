@@ -37,7 +37,7 @@ module Chargify2
       attr_reader :secret
 
       def initialize(hash, client)
-        args = hash.recursive_symbolize_keys
+        args = Utils.deep_symbolize_keys(hash)
 
         @api_id     = client.api_id
         @secret     = client.api_secret
@@ -105,17 +105,17 @@ module Chargify2
       attr_reader :signature
 
       def initialize(params, client)
-        args = params.recursive_symbolize_keys
+        args = Utils.deep_symbolize_keys(params)
 
         @api_id       = client.api_id
         @secret       = client.api_secret
 
-        @status_code  = args[:status_code]
-        @timestamp    = args[:timestamp]
-        @nonce        = args[:nonce]
-        @result_code  = args[:result_code]
-        @call_id      = args[:call_id]
-        @signature    = args[:signature]
+        @status_code  = args.status_code
+        @timestamp    = args.timestamp
+        @nonce        = args.nonce
+        @result_code  = args.result_code
+        @call_id      = args.call_id
+        @signature    = args.signature
 
         validate_args
       end

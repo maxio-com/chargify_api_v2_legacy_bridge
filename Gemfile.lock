@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    chargify2 (0.2.pre.internal.pre.2)
+    chargify2 (0.2.pre.internal.pre.3)
       hashery (~> 2.1.0)
       hashie
       httparty
-      rack
+      rack (~> 2.2.3)
       sanitize (= 6.1.0)
 
 GEM
@@ -13,6 +13,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    bigdecimal (3.2.3)
     capybara (3.35.3)
       addressable
       mini_mime (>= 0.1.3)
@@ -21,29 +22,29 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    coderay (1.0.9)
+    coderay (1.1.3)
     crack (0.3.1)
     crass (1.0.6)
-    diff-lcs (1.1.3)
+    csv (3.3.5)
+    diff-lcs (1.6.2)
     hashery (2.1.2)
-    hashie (4.1.0)
-    httparty (0.18.1)
-      mime-types (~> 3.0)
+    hashie (5.0.0)
+    httparty (0.23.1)
+      csv
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    method_source (0.8.1)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0225)
+    matrix (0.4.3)
+    method_source (1.1.0)
     mini_mime (1.1.0)
     mini_portile2 (2.8.5)
-    multi_xml (0.6.0)
+    multi_xml (0.7.2)
+      bigdecimal (~> 3.1)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    pry (0.9.12.1)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
+    pry (0.15.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.6)
     racc (1.5.2)
     rack (2.2.3)
@@ -51,39 +52,45 @@ GEM
       rack (>= 1.0, < 3)
     rake (0.9.2.2)
     regexp_parser (2.1.1)
-    rspec (2.11.0)
-      rspec-core (~> 2.11.0)
-      rspec-expectations (~> 2.11.0)
-      rspec-mocks (~> 2.11.0)
-    rspec-core (2.11.1)
-    rspec-expectations (2.11.3)
-      diff-lcs (~> 1.1.3)
-    rspec-mocks (2.11.2)
+    rexml (3.4.4)
+    rspec (3.13.1)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.5)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.6)
     sanitize (6.1.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    slop (3.4.5)
     vcr (2.2.5)
     webmock (1.8.10)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.8.2.1)
+    yard (0.9.37)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   capybara
   chargify2!
-  pry
+  matrix
+  pry (~> 0.14)
   rake (~> 0.9.2.2)
-  rspec (~> 2.11.0)
+  rexml
+  rspec (~> 3.12)
   vcr
   webmock
-  yard (~> 0.8.0)
+  yard (~> 0.9.34)
 
 BUNDLED WITH
    2.2.4

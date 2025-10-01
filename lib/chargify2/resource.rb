@@ -22,7 +22,7 @@ module Chargify2
       @auth     = {:username => client.api_id, :password => client.api_password}
 
       if client.proxy
-        parsed_proxy = URI.parse(proxy)
+        parsed_proxy = URI.parse(client.proxy)
         self.class.http_proxy(parsed_proxy.host, parsed_proxy.port, parsed_proxy.user, parsed_proxy.password)
       end
     end

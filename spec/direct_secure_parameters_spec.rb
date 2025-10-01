@@ -19,81 +19,81 @@ module Chargify2
     describe "#timestamp?" do
       it "returns true when a timestamp is provided via a string hash key" do
         sp = Direct::SecureParameters.new({'timestamp' => '1234'}, client)
-        sp.timestamp?.should be_true
+        sp.timestamp?.should be_truthy
       end
 
       it "returns true when a timestamp is provided via a symbol hash key" do
         sp = Direct::SecureParameters.new({:timestamp => '1234'}, client)
-        sp.timestamp?.should be_true
+        sp.timestamp?.should be_truthy
       end
 
       it "returns false when a timestamp key/value is not provided" do
         sp = Direct::SecureParameters.new({}, client)
-        sp.timestamp?.should be_false
+        sp.timestamp?.should be_falsey
       end
 
       it "returns false when a timestamp key is provided but the value is nil" do
         sp = Direct::SecureParameters.new({'timestamp' => nil}, client)
-        sp.timestamp?.should be_false
+        sp.timestamp?.should be_falsey
       end
 
       it "returns false when a timestamp key is provided but the value is blank" do
         sp = Direct::SecureParameters.new({'timestamp' => ''}, client)
-        sp.timestamp?.should be_false
+        sp.timestamp?.should be_falsey
       end
     end
 
     describe "#nonce?" do
       it "returns true when a nonce is provided via a string hash key" do
         sp = Direct::SecureParameters.new({'nonce' => '1234'}, client)
-        sp.nonce?.should be_true
+        sp.nonce?.should be_truthy
       end
 
       it "returns true when a nonce is provided via a symbol hash key" do
         sp = Direct::SecureParameters.new({:nonce => '1234'}, client)
-        sp.nonce?.should be_true
+        sp.nonce?.should be_truthy
       end
 
       it "returns false when a nonce key/value is not provided" do
         sp = Direct::SecureParameters.new({}, client)
-        sp.nonce?.should be_false
+        sp.nonce?.should be_falsey
       end
 
       it "returns false when a nonce key is provided but the value is nil" do
         sp = Direct::SecureParameters.new({'nonce' => nil}, client)
-        sp.nonce?.should be_false
+        sp.nonce?.should be_falsey
       end
 
       it "returns false when a nonce key is provided but the value is blank" do
         sp = Direct::SecureParameters.new({'nonce' => ''}, client)
-        sp.nonce?.should be_false
+        sp.nonce?.should be_falsey
       end
     end
 
     describe "#data?" do
       it "returns true when data is provided via a string hash key" do
         sp = Direct::SecureParameters.new({'data' => {'foo' => 'bar'}}, client)
-        sp.data?.should be_true
+        sp.data?.should be_truthy
       end
 
       it "returns true when data is provided via a symbol hash key" do
         sp = Direct::SecureParameters.new({:data => {'foo' => 'bar'}}, client)
-        sp.data?.should be_true
+        sp.data?.should be_truthy
       end
 
       it "returns false when a data key/value is not provided" do
         sp = Direct::SecureParameters.new({}, client)
-        sp.data?.should be_false
+        sp.data?.should be_falsey
       end
 
       it "returns false when a data key is provided but the value is nil" do
         sp = Direct::SecureParameters.new({'data' => nil}, client)
-        sp.data?.should be_false
+        sp.data?.should be_falsey
       end
 
       it "returns false when a data key is provided but the value is an empty hash" do
         sp = Direct::SecureParameters.new({'data' => {}}, client)
-        sp.data?.should be_false
+        sp.data?.should be_falsey
       end
     end
 
@@ -189,17 +189,15 @@ module Chargify2
         timestamp = '1234'
         nonce = '5678'
         data = {'one' => 'two', 'three' => {'four' => "http://www.example.com"}}
+        
+        # Rack::Utils.build_nested_query produces consistent output in modern Ruby
+        # The encoded data will be: "one=two&three[four]=http%3A%2F%2Fwww.example.com"
+        # The message will be: "00000000-0000-0000-0000-00000000000012345678one=two&three[four]=http%3A%2F%2Fwww.example.com"
+        # With secret: "notarealsecret"
+        # This produces signature: "7e77c55ee564e1ba1655cfc15609674ce80ab209"
+        
         sp = Direct::SecureParameters.new({'timestamp' => timestamp, 'nonce' => nonce, 'data' => data}, client)
-
-        # Rack::Utils.build_nested_query puts the string elements in a different order in different rubies
-        # Stub here to test the signature method.  We test the encoded_data method above.
-        sp.stub(:encoded_data).and_return("one=two&three[four]=http%3A%2F%2Fwww.example.com")
-
-        # Used the generator here: http://hash.online-convert.com/sha1-generator
-        # ... with message: "1c016050-498a-012e-91b1-005056a216ab12345678one=two&three[four]=http%3A%2F%2Fwww.example.com"
-        # ... and secret: "p5lxQ804MYtwZecFWNOT"
-        # ... to get: "c57c36e619f575958221bcd4ce156c61347a3555"
-        sp.signature.should == "c57c36e619f575958221bcd4ce156c61347a3555"
+        expect(sp.signature).to eq("7e77c55ee564e1ba1655cfc15609674ce80ab209")
       end
     end
   end

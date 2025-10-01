@@ -38,13 +38,13 @@ describe Chargify2::Response do
     it "returns true when the status code is 200" do
       meta = { status_code: 200, errors: []}
       response = described_class.new(Object.new, meta)
-      expect(response.successful?).to be_true
+      expect(response.successful?).to be_truthy
     end
 
     it "returns false when the status code is not 200" do
       meta = { status_code: 422, errors: []}
       response = described_class.new(Object.new, meta)
-      expect(response.successful?).to be_false
+      expect(response.successful?).to be_falsey
     end
   end
 
@@ -52,13 +52,13 @@ describe Chargify2::Response do
     it "returns true if the errors array contains errors" do
       meta = { status_code: 200, errors: ['hot diggity dogg']}
       response = described_class.new(Object.new, meta)
-      expect(response.errors?).to be_true
+      expect(response.errors?).to be_truthy
     end
 
     it "returns false if the errors array is empty" do
       meta = { status_code: 200, errors: []}
       response = described_class.new(Object.new, meta)
-      expect(response.errors?).to be_false
+      expect(response.errors?).to be_falsey
     end
   end
 

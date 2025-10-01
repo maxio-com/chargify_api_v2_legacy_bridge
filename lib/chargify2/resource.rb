@@ -20,6 +20,11 @@ module Chargify2
       @client   = client
       @base_uri = client.base_uri
       @auth     = {:username => client.api_id, :password => client.api_password}
+
+      if client.proxy
+        parsed_proxy = URI.parse(proxy)
+        self.class.http_proxy(parsed_proxy.host, parsed_proxy.port, parsed_proxy.user, parsed_proxy.password)
+      end
     end
 
     def read(id, query = {}, options = {})

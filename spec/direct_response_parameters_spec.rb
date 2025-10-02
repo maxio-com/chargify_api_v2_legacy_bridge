@@ -19,9 +19,10 @@ module Chargify2
         @result_code = '2000'
         @call_id = 'blah'
 
-        # Signature calculation:
-        # Message: "00000000-0000-0000-0000-000000000000130324532600000000-0000-0000-0000-0000000000002002000blah"
-        # Secret: "notarealsecret"
+        # # Used the generator here: http://hash.online-convert.com/sha1-generator
+        # ... with message: "1c016050-498a-012e-91b1-005056a216ab13032453261c016050-498a-012e-91b1-005056a216ab2002000blah"
+        # ... and secret: "p5lxQ804MYtwZecFWNOT"
+        # ... to get: "cfce3418f5fc4454a309fe01c918b90916d6c36a"
         @signature = "81146cf88328e5092e4fe577cf795891e77aef41"
       end
 

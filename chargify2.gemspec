@@ -26,10 +26,12 @@ Gem::Specification.new do |s|
 
   # Development Dependencies
   s.add_development_dependency('rake', '~> 0.9.2.2')
-  s.add_development_dependency('rspec', '~> 2.11.0')
+  s.add_development_dependency('rspec', '~> 3.12')
   s.add_development_dependency('capybara', '>= 0')
   s.add_development_dependency('vcr', '>= 0')
   s.add_development_dependency('webmock', '>= 0')
   s.add_development_dependency('yard', '~> 0.9.34')
-  s.add_development_dependency('pry')
+  s.add_development_dependency('pry', '~> 0.14')
+  s.add_development_dependency('matrix', '>= 0')
+  s.add_development_dependency('rexml', '>= 0')
 end

@@ -16,6 +16,7 @@ module Chargify2
     attr_reader :api_password
     attr_reader :api_secret
     attr_reader :base_uri
+    attr_reader :proxy
 
     def initialize(args = {})
       options = Utils.deep_symbolize_keys(args)
@@ -24,6 +25,7 @@ module Chargify2
       @api_password = options.api_password
       @api_secret   = options.api_secret
       @base_uri     = options.base_uri || BASE_URI
+      @proxy        = options.proxy
     end
 
     def direct

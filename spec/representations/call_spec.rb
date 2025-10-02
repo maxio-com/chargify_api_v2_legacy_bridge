@@ -18,12 +18,12 @@ describe Chargify2::Call do
   describe "#successful?" do
     it "is true when success is 200" do
       call = described_class.new(raw_response(status_code: 200))
-      expect(call.successful?).to be_true
+      expect(call.successful?).to be_truthy
     end
 
     it "is false when success is not 200" do
       call[:success] = false
-      expect(call.successful?).to be_false
+      expect(call.successful?).to be_falsey
     end
   end
 

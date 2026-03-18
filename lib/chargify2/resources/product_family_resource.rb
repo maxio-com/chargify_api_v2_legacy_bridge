@@ -7,5 +7,9 @@ module Chargify2
     def self.representation
       ProductFamily
     end
+
+    def self.plural_name
+      'product_families'
+    end
   end
 end

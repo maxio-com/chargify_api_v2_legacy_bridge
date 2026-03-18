@@ -48,6 +48,10 @@ module Chargify2
       Chargify2::ProductResource.new(self)
     end
 
+    def product_families
+      Chargify2::ProductFamilyResource.new(self)
+    end
+
     def offers
       Chargify2::OfferResource.new(self)
     end

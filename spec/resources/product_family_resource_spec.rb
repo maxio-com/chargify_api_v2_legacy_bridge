@@ -61,7 +61,7 @@ module Chargify2
 
         it "returns an array of ProductFamily representations" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/product_families'))
-          resource.list.resource.all? { |pf| pf.is_a?(ProductFamily) }
+          expect(resource.list.resource).to all(be_a(ProductFamily))
         end
       end
     end
